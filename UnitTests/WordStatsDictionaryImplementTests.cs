@@ -1,38 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using WordStats;
+using WordStats.Interfaces;
+using WordStats.Implements;
 
 namespace WordStatsTest
 {
     [TestClass]
-    public class WordStatsTests
+    public class WordStatsDictionaryImplementTests
     {
-        [TestMethod]
-        public void AddWord_AddsWordToDictionary()
-        {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
-            // Act
-            wordStats.AddWord("apple", 10);
-
-            // Assert
-            var words = wordStats.GetWords();
-            Assert.AreEqual(1, words.Count());
-            Assert.AreEqual("apple", words.First().Key);
-            Assert.AreEqual(10, words.First().Value);
-        }
+        private IWordStats wordStats = new WordStatsDictionaryImplement();
 
         [TestMethod]
         public void AddWords_AddsWordsToDictionary()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
@@ -46,27 +24,8 @@ namespace WordStatsTest
         }
 
         [TestMethod]
-        public void AddCharacter_AddsCharacterToDictionary()
-        {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
-            // Act
-            wordStats.AddCharacter('a', 10);
-
-            // Assert
-            var characters = wordStats.GetCharacters();
-            Assert.AreEqual(1, characters.Count());
-            Assert.AreEqual('a', characters.First().Key);
-            Assert.AreEqual(10, characters.First().Value);
-        }
-
-        [TestMethod]
         public void AddCharacters_AddsCharactersToDictionary()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 } });
 
@@ -82,12 +41,8 @@ namespace WordStatsTest
         [TestMethod]
         public void GetWords_ReturnsWords()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Act
             var words = wordStats.GetWords();
@@ -103,12 +58,8 @@ namespace WordStatsTest
         [TestMethod]
         public void GetCharacters_ReturnsCharacters()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some characters
-            wordStats.AddCharacter('a', 10);
-            wordStats.AddCharacter('b', 5);
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 } });
 
             // Act
             var characters = wordStats.GetCharacters();
@@ -124,9 +75,6 @@ namespace WordStatsTest
         [TestMethod]
         public void GetLargestFiveWords_ReturnsEmptyListWhenNoWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             var largestWords = wordStats.GetLargestFiveWords();
 
@@ -137,12 +85,8 @@ namespace WordStatsTest
         [TestMethod]
         public void GetLargestFiveWords_ReturnsLessThanFiveWordsWhenLessThanFiveWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Act
             var largestWords = wordStats.GetLargestFiveWords();
@@ -154,16 +98,9 @@ namespace WordStatsTest
         [TestMethod]
         public void GetLargestFiveWords_ReturnsLargestFiveWords()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
-            wordStats.AddWord("pineapple", 15);
-            wordStats.AddWord("elderberry", 20);
-            wordStats.AddWord("fig", 25);
-            wordStats.AddWord("kiwi", 30);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
 
             // Act
             var largestWords = wordStats.GetLargestFiveWords();
@@ -180,9 +117,6 @@ namespace WordStatsTest
         [TestMethod]
         public void GetSmallestFiveWords_ReturnsEmptyListWhenNoWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             var smallestWords = wordStats.GetSmallestFiveWords();
 
@@ -193,12 +127,8 @@ namespace WordStatsTest
         [TestMethod]
         public void GetSmallestFiveWords_ReturnsLessThanFiveWordsWhenLessThanFiveWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Act
             var smallestWords = wordStats.GetSmallestFiveWords();
@@ -210,16 +140,9 @@ namespace WordStatsTest
         [TestMethod]
         public void GetSmallestFiveWords_ReturnsSmallestFiveWords()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
-            wordStats.AddWord("pineapple", 15);
-            wordStats.AddWord("elderberry", 20);
-            wordStats.AddWord("fig", 25);
-            wordStats.AddWord("kiwi", 30);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
 
             // Act
             var smallestWords = wordStats.GetSmallestFiveWords();
@@ -236,9 +159,6 @@ namespace WordStatsTest
         [TestMethod]
         public void GetMostFrequentTenWords_ReturnsEmptyListWhenNoWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             var mostFrequentWords = wordStats.GetMostFrequentTenWords();
 
@@ -249,12 +169,8 @@ namespace WordStatsTest
         [TestMethod]
         public void GetMostFrequentTenWords_ReturnsLessThanTenWordsWhenLessThanTenWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Act
             var mostFrequentWords = wordStats.GetMostFrequentTenWords();
@@ -266,21 +182,10 @@ namespace WordStatsTest
         [TestMethod]
         public void GetMostFrequentTenWords_ReturnsMostFrequentTenWords()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
-            wordStats.AddWord("pineapple", 15);
-            wordStats.AddWord("elderberry", 20);
-            wordStats.AddWord("fig", 25);
-            wordStats.AddWord("kiwi", 30);
-            wordStats.AddWord("mango", 35);
-            wordStats.AddWord("orange", 40);
-            wordStats.AddWord("pear", 45);
-            wordStats.AddWord("strawberry", 50);
-            wordStats.AddWord("watermelon", 55);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 }, 
+                { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
 
             // Act
             var mostFrequentWords = wordStats.GetMostFrequentTenWords();
@@ -302,40 +207,26 @@ namespace WordStatsTest
         [TestMethod]
         public void ToJsonString_ReturnsEmptyResultWhenNoWordsAdded()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Act
             var jsonString = wordStats.ToJsonString();
 
             // Assert
-            Assert.AreEqual("{\"LargestFiveWords\":[],\"SmallestFiveWords\":[],\"MostFrequentTenWords\":[],\"Characters\":[]}", jsonString);
+            Assert.AreEqual("{\"TotalWords\":0,\"TotalCharacters\":0,\"LargestFiveWords\":[],\"SmallestFiveWords\":[],\"MostFrequentTenWords\":[],\"Characters\":[]}", jsonString);
         }
 
         [TestMethod]
         public void ToJsonString_ReturnsJsonStringWithWords()
         {
-            // Arrange
-            IWordStats wordStats = new WordStatsDictionaryImpl();
-
             // Add some words
-            wordStats.AddWord("apple", 10);
-            wordStats.AddWord("banana", 5);
-            wordStats.AddWord("pineapple", 15);
-            wordStats.AddWord("elderberry", 20);
-            wordStats.AddWord("fig", 25);
-            wordStats.AddWord("kiwi", 30);
-            wordStats.AddWord("mango", 35);
-            wordStats.AddWord("orange", 40);
-            wordStats.AddWord("pear", 45);
-            wordStats.AddWord("strawberry", 50);
-            wordStats.AddWord("watermelon", 55);
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 }, 
+                { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
 
             // Act
             var jsonString = wordStats.ToJsonString();
 
             // Assert
-            Assert.AreEqual("{\"LargestFiveWords\":[\"elderberry\",\"strawberry\",\"watermelon\",\"pineapple\",\"banana\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"mango\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}", jsonString);
+            Assert.AreEqual("{\"TotalWords\":330,\"TotalCharacters\":0,\"LargestFiveWords\":[\"elderberry\",\"strawberry\",\"watermelon\",\"pineapple\",\"banana\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"mango\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}", jsonString);
         }
     }
 }
