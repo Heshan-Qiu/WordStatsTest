@@ -24,6 +24,21 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void AddWords_AddsWordsToDictionaryWithCaseSensitive()
+        {
+            // Act
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 } });
+
+            // Assert
+            var words = wordStats.GetWords();
+            Assert.AreEqual(2, words.Count());
+            Assert.AreEqual("apple", words.First().Key);
+            Assert.AreEqual(10, words.First().Value);
+            Assert.AreEqual("Apple", words.Last().Key);
+            Assert.AreEqual(5, words.Last().Value);
+        }
+
+        [TestMethod]
         public void AddCharacters_AddsCharactersToDictionary()
         {
             // Act
