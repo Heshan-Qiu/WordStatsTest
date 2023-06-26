@@ -228,5 +228,20 @@ namespace WordStatsTest
             // Assert
             Assert.AreEqual("{\"TotalWords\":330,\"TotalCharacters\":0,\"LargestFiveWords\":[\"elderberry\",\"strawberry\",\"watermelon\",\"pineapple\",\"banana\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"mango\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}", jsonString);
         }
+
+        [TestMethod]
+        public void ToJsonString_ReturnsJsonStringWithCharacters()
+        {
+            // Add some characters
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 }, 
+                { 'c', 15 }, { 'd', 20 }, { 'e', 25 }, { 'f', 30 }, { 'g', 35 }, 
+                { 'h', 40 }, { 'i', 45 }, { 'j', 50 }, { 'k', 55 } });
+
+            // Act
+            var jsonString = wordStats.ToJsonString();
+
+            // Assert
+            Assert.AreEqual("{\"TotalWords\":0,\"TotalCharacters\":330,\"LargestFiveWords\":[],\"SmallestFiveWords\":[],\"MostFrequentTenWords\":[],\"Characters\":[{\"Key\":\"k\",\"Value\":55},{\"Key\":\"j\",\"Value\":50},{\"Key\":\"i\",\"Value\":45},{\"Key\":\"h\",\"Value\":40},{\"Key\":\"g\",\"Value\":35},{\"Key\":\"f\",\"Value\":30},{\"Key\":\"e\",\"Value\":25},{\"Key\":\"d\",\"Value\":20},{\"Key\":\"c\",\"Value\":15},{\"Key\":\"a\",\"Value\":10},{\"Key\":\"b\",\"Value\":5}]}", jsonString);
+        }
     }
 }
