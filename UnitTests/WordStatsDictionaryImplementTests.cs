@@ -54,6 +54,21 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void AddCharacters_AddsCharactersToDictionaryWithCaseSensitive()
+        {
+            // Act
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 } });
+
+            // Assert
+            var characters = wordStats.GetCharacters();
+            Assert.AreEqual(2, characters.Count());
+            Assert.AreEqual('a', characters.First().Key);
+            Assert.AreEqual(10, characters.First().Value);
+            Assert.AreEqual('A', characters.Last().Key);
+            Assert.AreEqual(5, characters.Last().Value);
+        }
+
+        [TestMethod]
         public void GetWords_ReturnsWords()
         {
             // Add some words
