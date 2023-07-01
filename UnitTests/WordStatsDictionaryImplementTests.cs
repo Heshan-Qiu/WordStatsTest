@@ -15,7 +15,7 @@ namespace WordStatsTest
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Assert
-            var words = wordStats.GetWords();
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
             Assert.AreEqual(2, words.Count());
             Assert.AreEqual("apple", words.First().Key);
             Assert.AreEqual(10, words.First().Value);
@@ -30,7 +30,7 @@ namespace WordStatsTest
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 } });
 
             // Assert
-            var words = wordStats.GetWords();
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
             Assert.AreEqual(2, words.Count());
             Assert.AreEqual("apple", words.First().Key);
             Assert.AreEqual(10, words.First().Value);
@@ -45,7 +45,7 @@ namespace WordStatsTest
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 }, { " ", 2 }, { ".", 1 } });
 
             // Assert
-            var words = wordStats.GetWords();
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
             Assert.AreEqual(4, words.Count());
             Assert.AreEqual("apple", words.First().Key);
             Assert.AreEqual(10, words.First().Value);
@@ -64,7 +64,7 @@ namespace WordStatsTest
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 }, { " ", 2 }, { ".", 1 }, { "123", 3 } });
 
             // Assert
-            var words = wordStats.GetWords();
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
             Assert.AreEqual(5, words.Count());
             Assert.AreEqual("apple", words.First().Key);
             Assert.AreEqual(10, words.First().Value);
@@ -85,7 +85,7 @@ namespace WordStatsTest
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 } });
 
             // Assert
-            var characters = wordStats.GetCharacters();
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
             Assert.AreEqual(2, characters.Count());
             Assert.AreEqual('a', characters.First().Key);
             Assert.AreEqual(10, characters.First().Value);
@@ -100,7 +100,7 @@ namespace WordStatsTest
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 } });
 
             // Assert
-            var characters = wordStats.GetCharacters();
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
             Assert.AreEqual(2, characters.Count());
             Assert.AreEqual('a', characters.First().Key);
             Assert.AreEqual(10, characters.First().Value);
@@ -115,7 +115,7 @@ namespace WordStatsTest
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 }, { ' ', 2 }, { '.', 1 } });
 
             // Assert
-            var characters = wordStats.GetCharacters();
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
             Assert.AreEqual(4, characters.Count());
             Assert.AreEqual('a', characters.First().Key);
             Assert.AreEqual(10, characters.First().Value);
@@ -134,7 +134,7 @@ namespace WordStatsTest
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
 
             // Act
-            var words = wordStats.GetWords();
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
 
             // Assert
             Assert.AreEqual(2, words.Count());
@@ -151,7 +151,7 @@ namespace WordStatsTest
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 } });
 
             // Act
-            var characters = wordStats.GetCharacters();
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
 
             // Assert
             Assert.AreEqual(2, characters.Count());
