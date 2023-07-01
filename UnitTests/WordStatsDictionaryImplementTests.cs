@@ -1,5 +1,5 @@
-using WordStats.Interfaces;
 using WordStats.Implements;
+using WordStats.Interfaces;
 
 namespace WordStatsTest
 {
@@ -55,6 +55,27 @@ namespace WordStatsTest
             Assert.AreEqual(2, words.Skip(2).First().Value);
             Assert.AreEqual(".", words.Skip(3).First().Key);
             Assert.AreEqual(1, words.Skip(3).First().Value);
+        }
+
+        [TestMethod]
+        public void AddWords_AddsWordsToDictionaryWithCaseSensitiveAndNonLetterCharactersAndNumbers()
+        {
+            // Act
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 }, { " ", 2 }, { ".", 1 }, { "123", 3 } });
+
+            // Assert
+            var words = wordStats.GetWords();
+            Assert.AreEqual(5, words.Count());
+            Assert.AreEqual("apple", words.First().Key);
+            Assert.AreEqual(10, words.First().Value);
+            Assert.AreEqual("Apple", words.Skip(1).First().Key);
+            Assert.AreEqual(5, words.Skip(1).First().Value);
+            Assert.AreEqual("123", words.Skip(2).First().Key);
+            Assert.AreEqual(3, words.Skip(2).First().Value);
+            Assert.AreEqual(" ", words.Skip(3).First().Key);
+            Assert.AreEqual(2, words.Skip(3).First().Value);
+            Assert.AreEqual(".", words.Skip(4).First().Key);
+            Assert.AreEqual(1, words.Skip(4).First().Value);
         }
 
         [TestMethod]
@@ -167,7 +188,7 @@ namespace WordStatsTest
         public void GetLargestFiveWords_ReturnsLargestFiveWords()
         {
             // Add some words
-            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 },
                 { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
 
             // Act
@@ -209,7 +230,7 @@ namespace WordStatsTest
         public void GetSmallestFiveWords_ReturnsSmallestFiveWords()
         {
             // Add some words
-            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 },
                 { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
 
             // Act
@@ -251,8 +272,8 @@ namespace WordStatsTest
         public void GetMostFrequentTenWords_ReturnsMostFrequentTenWords()
         {
             // Add some words
-            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
-                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 }, 
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 },
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 },
                 { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
 
             // Act
@@ -286,8 +307,8 @@ namespace WordStatsTest
         public void ToJsonString_ReturnsJsonStringWithWords()
         {
             // Add some words
-            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 }, 
-                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 }, 
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 },
+                { "pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 },
                 { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
 
             // Act
@@ -301,8 +322,8 @@ namespace WordStatsTest
         public void ToJsonString_ReturnsJsonStringWithCharacters()
         {
             // Add some characters
-            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 }, 
-                { 'c', 15 }, { 'd', 20 }, { 'e', 25 }, { 'f', 30 }, { 'g', 35 }, 
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 },
+                { 'c', 15 }, { 'd', 20 }, { 'e', 25 }, { 'f', 30 }, { 'g', 35 },
                 { 'h', 40 }, { 'i', 45 }, { 'j', 50 }, { 'k', 55 } });
 
             // Act
