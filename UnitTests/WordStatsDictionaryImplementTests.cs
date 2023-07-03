@@ -128,6 +128,27 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void AddCharacters_AddsCharactersToDictionaryWithCaseSensitiveAndNonLetterCharactersAndNumbers()
+        {
+            // Act
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 }, { ' ', 2 }, { '.', 1 }, { '1', 3 } });
+
+            // Assert
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
+            Assert.AreEqual(5, characters.Count());
+            Assert.AreEqual('a', characters.First().Key);
+            Assert.AreEqual(10, characters.First().Value);
+            Assert.AreEqual('A', characters.Skip(1).First().Key);
+            Assert.AreEqual(5, characters.Skip(1).First().Value);
+            Assert.AreEqual('1', characters.Skip(2).First().Key);
+            Assert.AreEqual(3, characters.Skip(2).First().Value);
+            Assert.AreEqual(' ', characters.Skip(3).First().Key);
+            Assert.AreEqual(2, characters.Skip(3).First().Value);
+            Assert.AreEqual('.', characters.Skip(4).First().Key);
+            Assert.AreEqual(1, characters.Skip(4).First().Value);
+        }
+
+        [TestMethod]
         public void GetWords_ReturnsWords()
         {
             // Add some words
