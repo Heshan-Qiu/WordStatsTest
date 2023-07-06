@@ -149,10 +149,20 @@ namespace WordStatsTest
         }
 
         [TestMethod]
-        public void GetWords_ReturnsWords()
+        public void GetWordsOrderByFrequencyDescending_ReturnsEmptyListWhenNoWordsAdded()
+        {
+            // Act
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
+
+            // Assert
+            Assert.AreEqual(0, words.Count());
+        }
+
+        [TestMethod]
+        public void GetWordsOrderByFrequencyDescending_ReturnsWords()
         {
             // Add some words
-            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "banana", 5 } });
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 } });
 
             // Act
             var words = wordStats.GetWordsOrderByFrequencyDescending();
@@ -161,12 +171,22 @@ namespace WordStatsTest
             Assert.AreEqual(2, words.Count());
             Assert.AreEqual("apple", words.First().Key);
             Assert.AreEqual(10, words.First().Value);
-            Assert.AreEqual("banana", words.Last().Key);
+            Assert.AreEqual("Apple", words.Last().Key);
             Assert.AreEqual(5, words.Last().Value);
         }
 
         [TestMethod]
-        public void GetCharacters_ReturnsCharacters()
+        public void GetCharactersOrderByFrequencyDescending_ReturnsEmptyListWhenNoCharactersAdded()
+        {
+            // Act
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
+
+            // Assert
+            Assert.AreEqual(0, characters.Count());
+        }
+
+        [TestMethod]
+        public void GetCharactersOrderByFrequencyDescending_ReturnsCharacters()
         {
             // Add some characters
             wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'b', 5 } });
