@@ -220,6 +220,23 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void GetCharactersOrderByFrequencyDescending_ReturnsCharactersWithCaseSensitive()
+        {
+            // Add some characters
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 } });
+
+            // Act
+            var characters = wordStats.GetCharactersOrderByFrequencyDescending();
+
+            // Assert
+            Assert.AreEqual(2, characters.Count());
+            Assert.AreEqual('a', characters.First().Key);
+            Assert.AreEqual(10, characters.First().Value);
+            Assert.AreEqual('A', characters.Last().Key);
+            Assert.AreEqual(5, characters.Last().Value);
+        }
+
+        [TestMethod]
         public void GetLargestFiveWords_ReturnsEmptyListWhenNoWordsAdded()
         {
             // Act
