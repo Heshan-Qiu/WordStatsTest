@@ -176,6 +176,23 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void GetWordsOrderByFrequencyDescending_ReturnsWordsWithCaseSensitive()
+        {
+            // Add some words
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 } });
+
+            // Act
+            var words = wordStats.GetWordsOrderByFrequencyDescending();
+
+            // Assert
+            Assert.AreEqual(2, words.Count());
+            Assert.AreEqual("apple", words.First().Key);
+            Assert.AreEqual(10, words.First().Value);
+            Assert.AreEqual("Apple", words.Last().Key);
+            Assert.AreEqual(5, words.Last().Value);
+        }
+
+        [TestMethod]
         public void GetCharactersOrderByFrequencyDescending_ReturnsEmptyListWhenNoCharactersAdded()
         {
             // Act
