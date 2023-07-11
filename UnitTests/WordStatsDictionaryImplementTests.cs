@@ -279,6 +279,25 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void GetLargestFiveWords_ReturnsLargestFiveWordsWithCaseSensitive()
+        {
+            // Add some words
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 },
+                { "Pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
+
+            // Act
+            var largestWords = wordStats.GetLargestFiveWords();
+
+            // Assert
+            Assert.AreEqual(5, largestWords.Count());
+            Assert.AreEqual("elderberry", largestWords.First());
+            Assert.AreEqual("Pineapple", largestWords.Skip(1).First());
+            Assert.AreEqual("Apple", largestWords.Skip(2).First());
+            Assert.AreEqual("apple", largestWords.Skip(3).First());
+            Assert.AreEqual("kiwi", largestWords.Skip(4).First());
+        }
+
+        [TestMethod]
         public void GetSmallestFiveWords_ReturnsEmptyListWhenNoWordsAdded()
         {
             // Act
@@ -390,7 +409,8 @@ namespace WordStatsTest
             var jsonString = wordStats.ToJsonString();
 
             // Assert
-            Assert.AreEqual("{\"TotalWords\":330,\"TotalCharacters\":0,\"LargestFiveWords\":[\"elderberry\",\"strawberry\",\"watermelon\",\"pineapple\",\"banana\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"mango\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}", jsonString);
+            string result = "{\"TotalWords\":330,\"TotalCharacters\":0,\"LargestFiveWords\":[\"watermelon\",\"strawberry\",\"elderberry\",\"pineapple\",\"orange\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"mango\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}";
+            Assert.AreEqual(result, jsonString);
         }
 
         [TestMethod]
