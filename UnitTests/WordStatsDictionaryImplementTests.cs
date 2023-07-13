@@ -340,6 +340,25 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void GetSmallestFiveWords_ReturnsSmallestFiveWordsWithCaseSensitive()
+        {
+            // Add some words
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 },
+                { "Pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 } });
+
+            // Act
+            var smallestWords = wordStats.GetSmallestFiveWords();
+
+            // Assert
+            Assert.AreEqual(5, smallestWords.Count());
+            Assert.AreEqual("fig", smallestWords.First());
+            Assert.AreEqual("kiwi", smallestWords.Skip(1).First());
+            Assert.AreEqual("apple", smallestWords.Skip(2).First());
+            Assert.AreEqual("Apple", smallestWords.Skip(3).First());
+            Assert.AreEqual("Pineapple", smallestWords.Skip(4).First());
+        }
+
+        [TestMethod]
         public void GetMostFrequentTenWords_ReturnsEmptyListWhenNoWordsAdded()
         {
             // Act
