@@ -407,6 +407,31 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void GetMostFrequentTenWords_ReturnsMostFrequentTenWordsWithCaseSensitive()
+        {
+            // Add some words
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 },
+                { "Pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 },
+                { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
+
+            // Act
+            var mostFrequentWords = wordStats.GetMostFrequentTenWords();
+
+            // Assert
+            Assert.AreEqual(10, mostFrequentWords.Count());
+            Assert.AreEqual(KeyValuePair.Create("watermelon", 55), mostFrequentWords.First());
+            Assert.AreEqual(KeyValuePair.Create("strawberry", 50), mostFrequentWords.Skip(1).First());
+            Assert.AreEqual(KeyValuePair.Create("pear", 45), mostFrequentWords.Skip(2).First());
+            Assert.AreEqual(KeyValuePair.Create("orange", 40), mostFrequentWords.Skip(3).First());
+            Assert.AreEqual(KeyValuePair.Create("mango", 35), mostFrequentWords.Skip(4).First());
+            Assert.AreEqual(KeyValuePair.Create("kiwi", 30), mostFrequentWords.Skip(5).First());
+            Assert.AreEqual(KeyValuePair.Create("fig", 25), mostFrequentWords.Skip(6).First());
+            Assert.AreEqual(KeyValuePair.Create("elderberry", 20), mostFrequentWords.Skip(7).First());
+            Assert.AreEqual(KeyValuePair.Create("Pineapple", 15), mostFrequentWords.Skip(8).First());
+            Assert.AreEqual(KeyValuePair.Create("apple", 10), mostFrequentWords.Skip(9).First());
+        }
+
+        [TestMethod]
         public void ToJsonString_ReturnsEmptyResultWhenNoWordsAdded()
         {
             // Act
