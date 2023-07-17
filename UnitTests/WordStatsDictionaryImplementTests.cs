@@ -458,6 +458,22 @@ namespace WordStatsTest
         }
 
         [TestMethod]
+        public void ToJsonString_ReturnsJsonStringWithWordsWithCaseSensitive()
+        {
+            // Add some words
+            wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 },
+                { "Pineapple", 15 }, { "elderberry", 20 }, { "fig", 25 }, { "kiwi", 30 }, { "mango", 35 },
+                { "orange", 40 }, { "pear", 45 }, { "strawberry", 50 }, { "watermelon", 55 } });
+
+            // Act
+            var jsonString = wordStats.ToJsonString();
+
+            // Assert
+            string result = "{\"TotalWords\":330,\"TotalCharacters\":0,\"LargestFiveWords\":[\"watermelon\",\"strawberry\",\"elderberry\",\"Pineapple\",\"orange\"],\"SmallestFiveWords\":[\"fig\",\"kiwi\",\"pear\",\"apple\",\"Apple\"],\"MostFrequentTenWords\":[{\"Key\":\"watermelon\",\"Value\":55},{\"Key\":\"strawberry\",\"Value\":50},{\"Key\":\"pear\",\"Value\":45},{\"Key\":\"orange\",\"Value\":40},{\"Key\":\"mango\",\"Value\":35},{\"Key\":\"kiwi\",\"Value\":30},{\"Key\":\"fig\",\"Value\":25},{\"Key\":\"elderberry\",\"Value\":20},{\"Key\":\"Pineapple\",\"Value\":15},{\"Key\":\"apple\",\"Value\":10}],\"Characters\":[]}";
+            Assert.AreEqual(result, jsonString);
+        }
+
+        [TestMethod]
         public void ToJsonString_ReturnsJsonStringWithCharacters()
         {
             // Add some characters
