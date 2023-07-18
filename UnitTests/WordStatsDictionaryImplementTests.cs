@@ -458,7 +458,7 @@ namespace WordStatsTest
         }
 
         [TestMethod]
-        public void ToJsonString_ReturnsJsonStringWithWordsWithCaseSensitive()
+        public void ToJsonString_ReturnsJsonStringWithWordsAndCaseSensitive()
         {
             // Add some words
             wordStats.AddWords(new Dictionary<string, int> { { "apple", 10 }, { "Apple", 5 },
@@ -486,6 +486,21 @@ namespace WordStatsTest
 
             // Assert
             Assert.AreEqual("{\"TotalWords\":0,\"TotalCharacters\":330,\"LargestFiveWords\":[],\"SmallestFiveWords\":[],\"MostFrequentTenWords\":[],\"Characters\":[{\"Key\":\"k\",\"Value\":55},{\"Key\":\"j\",\"Value\":50},{\"Key\":\"i\",\"Value\":45},{\"Key\":\"h\",\"Value\":40},{\"Key\":\"g\",\"Value\":35},{\"Key\":\"f\",\"Value\":30},{\"Key\":\"e\",\"Value\":25},{\"Key\":\"d\",\"Value\":20},{\"Key\":\"c\",\"Value\":15},{\"Key\":\"a\",\"Value\":10},{\"Key\":\"b\",\"Value\":5}]}", jsonString);
+        }
+
+        [TestMethod]
+        public void ToJsonString_ReturnsJsonStringWithCharactersAndCaseSensitive()
+        {
+            // Add some characters
+            wordStats.AddCharacters(new Dictionary<char, int> { { 'a', 10 }, { 'A', 5 },
+                { 'c', 15 }, { 'd', 20 }, { 'e', 25 }, { 'f', 30 }, { 'g', 35 },
+                { 'h', 40 }, { 'i', 45 }, { 'j', 50 }, { 'k', 55 } });
+
+            // Act
+            var jsonString = wordStats.ToJsonString();
+
+            // Assert
+            Assert.AreEqual("{\"TotalWords\":0,\"TotalCharacters\":330,\"LargestFiveWords\":[],\"SmallestFiveWords\":[],\"MostFrequentTenWords\":[],\"Characters\":[{\"Key\":\"k\",\"Value\":55},{\"Key\":\"j\",\"Value\":50},{\"Key\":\"i\",\"Value\":45},{\"Key\":\"h\",\"Value\":40},{\"Key\":\"g\",\"Value\":35},{\"Key\":\"f\",\"Value\":30},{\"Key\":\"e\",\"Value\":25},{\"Key\":\"d\",\"Value\":20},{\"Key\":\"c\",\"Value\":15},{\"Key\":\"a\",\"Value\":10},{\"Key\":\"A\",\"Value\":5}]}", jsonString);
         }
 
         [TestMethod]
